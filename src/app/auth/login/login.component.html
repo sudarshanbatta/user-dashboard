@@ -1,0 +1,36 @@
+<div class="container login-container">
+  <div class="row login-content">
+    <div class="col-md-4 offset-md-4">
+      <!-- login form code start -->
+        <form [formGroup]="logInForm" (ngSubmit)="Login()">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            placeholder="Enter email id"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            [ngClass]="{ invalid: submitted && f.email.errors }"
+          />
+          <div *ngIf="submitted && f.email.errors" class="val-error">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+          </div>
+          <label for="name">Password</label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            [ngClass]="{ invalid: submitted && f.password.errors }"
+          />
+          <div *ngIf="submitted && f.password.errors" class="val-error">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>
+          <button type="submit" class="login-btn">Login</button>
+        </form>
+           <!-- login form code end -->
+      </div>
+    </div>
+  </div>
+

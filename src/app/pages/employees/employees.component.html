@@ -1,0 +1,171 @@
+<div class="employee-container">
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <div class="search">
+        <input
+          type="text"
+          class="form-control"
+          #input
+          (keyup)="applyFilter($event.target.value)"
+          placeholder="Serach..."
+        />
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-3 text-right">
+      <button type="button" (click)="openEmpModal()" class="add-button">
+        Add Employee
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Employee Table Code start -->
+      <div class="data-tables">
+        <table matTableExporter mat-table [dataSource]="employeesList" matSort>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.id }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Employee Name
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.name }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="roleType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.email }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Age</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.age }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+            <td mat-cell *matCellDef="let row;let i = index">
+              <i class="fa fa-edit mr-1" (click)="editData(row)"></i>
+              <i class="fa fa-trash" (click)="deleteEmp(i)"></i>
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns; sticky: true"
+          ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              No Employee Data Found with "{{ input.value }}"
+            </td>
+          </tr>
+        </table>
+        <mat-paginator
+          class="mat-paginator-sticky"
+          [pageIndex]="0"
+          [pageSize]="10"
+          showFirstLastButtons
+          [pageSizeOptions]="[5, 10]"
+        ></mat-paginator>
+      </div>
+     <!-- Employee Table Code end -->
+    </div>
+  </div>
+</div>
+<!-- Add employee popup code start -->
+<div class="modal" id="EmployeeModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="!edit">Add Employee</h4>
+        <h4 class="modal-title" *ngIf="edit">Edit Employee</h4>
+        <button
+          type="button"
+          (click)="close()"
+          class="close"
+          data-dismiss="modal"
+        >
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <form [formGroup]="addEmployeeForm" (ngSubmit)="saveEmployee()">
+        <div class="modal-body">
+          <label for="Id">Id</label>
+          <input
+            type="text"
+            placeholder="Enter Id"
+            class="form-control"
+            id="Id"
+            formControlName="id"
+            [ngClass]="{ invalid: submitted && f.id.errors }"
+            [(ngModel)]="editEmployeeData.id"
+          />
+          <div *ngIf="submitted && f.id.errors" class="val-error">
+            <div *ngIf="f.id.errors.required">Id is required</div>
+          </div>
+          <label for="name">Name</label>
+          <input
+            type="text"
+            placeholder="Enter Employee Name"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            [ngClass]="{ invalid: submitted && f.name.errors }"
+            [(ngModel)]="editEmployeeData.name"
+          />
+          <div *ngIf="submitted && f.name.errors" class="val-error">
+            <div *ngIf="f.name.errors.required">Name is required</div>
+          </div>
+          <label for="email">Email</label>
+          <input
+            type="text"
+            placeholder="Enter Employee Email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            [ngClass]="{ invalid: submitted && f.email.errors }"
+            [(ngModel)]="editEmployeeData.email"
+          />
+          <div *ngIf="submitted && f.email.errors" class="val-error">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+          </div>
+          <label for="age">Age</label>
+          <input
+            type="text"
+            placeholder="Enter Employee age"
+            class="form-control"
+            id="age"
+            formControlName="age"
+            [ngClass]="{ invalid: submitted && f.age.errors }"
+            [(ngModel)]="editEmployeeData.age"
+          />
+          <div *ngIf="submitted && f.age.errors" class="val-error">
+            <div *ngIf="f.age.errors.required">Age is required</div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn cancel-btn" (click)="close()">
+            Cancel
+          </button>
+          <button type="submit" *ngIf="!edit" class="btn save-btn">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Add employee popup code end -->

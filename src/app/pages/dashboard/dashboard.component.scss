@@ -1,0 +1,26 @@
+.info-card{
+  border-radius: 0.3rem;
+  border: 1px solid #70635c;
+  padding: 1rem;
+  margin:0 0.3rem 0.8rem 0;
+
+  .disply-info{
+    display: flex;
+    justify-content: space-between;
+    h4{
+      margin: 0;
+    }
+    h5{
+      margin: 0;
+    }
+  }
+  h5{
+    font-size: 1rem;
+    font-weight: 500;
+    color: #5a5f67;
+  }
+  h4{
+    font-weight: 500;
+    margin: 0;
+  }
+}

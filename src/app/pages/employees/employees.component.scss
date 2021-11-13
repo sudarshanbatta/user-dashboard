@@ -1,0 +1,33 @@
+@import '../../../assets/abstracts/mixins';
+@include breakpoint(mobileonly) {
+  .add-button{
+    margin-top: 1rem;
+  }
+}
+.add-button {
+  background-color: #164081;
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+// .data-tables {
+//   height: 80vh;
+// }
+.save-btn {
+  background-color: #164081;
+  color: #fff;
+}
+.cancel-btn {
+  background-color: #fff;
+  color: #164081;
+  border: 1px solid #164081;
+  &:hover {
+    background-color: #164081;
+    color: #fff;
+  }
+}
+
+.fa{
+  font-size: 1.2rem;
+}
